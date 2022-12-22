@@ -25,7 +25,7 @@ export default {
       todos: [
         {
           id:0,
-          title: 'comprar la cena',
+          title: 'comprar la cenaddsdasdd',
           completed: false
         },
         {
