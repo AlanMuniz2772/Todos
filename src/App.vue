@@ -4,7 +4,7 @@
 
       <div id="main-container">
         <h2>Todos</h2>
-        <TodosIn v-bind:todoslist="copyTodos" />
+        <TodosIn v-bind:todoslist="copyTodos" v-on:delete-todo="deleteTodo"/>
       </div>
   </div>
 </template>
@@ -19,6 +19,12 @@ export default {
   name: 'App',
   components: {
     TodosIn
+  },
+  methods: {
+    deleteTodo(id){
+      this.todos = this.todos.filter(todo => todo.id != id );
+      this.copyTodos = [...this.todos];
+    }
   },
   data(){
     return{
@@ -37,6 +43,11 @@ export default {
           id:2,
           title: 'jugar xbox',
           completed: false
+        },
+        {
+          id:3,
+          title: 'Terminar tutorial',
+          completed: true
         }
       ],
       copyTodos: []
