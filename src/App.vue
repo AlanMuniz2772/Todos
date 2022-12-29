@@ -1,55 +1,53 @@
 <template>
   <div>
-    <div id="header"></div>
+    <div id="header">
+      <SearchIn v-on:query-change="querySearch"/>
+    </div>
 
       <div id="main-container">
         <h2>Todos</h2>
+        <TodoAdd v-on:add-todo="addTodo"/>
         <TodosIn v-bind:todoslist="copyTodos" v-on:delete-todo="deleteTodo"/>
       </div>
   </div>
 </template>
 
 <script>
-//import Search from '.components/Search';
+import SearchIn from './components/SearchIn';
 import TodosIn from './components/TodosIn';
-//import TodoAdd from '.components/TodoAdd';
+import TodoAdd from './components/TodoAdd';
+
 
 
 export default {
   name: 'App',
   components: {
-    TodosIn
+    TodosIn, TodoAdd, SearchIn
   },
   methods: {
     deleteTodo(id){
       this.todos = this.todos.filter(todo => todo.id != id );
       this.copyTodos = [...this.todos];
+    },
+    addTodo(todo){
+      this.todos.push(todo);
+      this.copyTodos = [...this.todos];
+    },
+    querySearch(query){
+      if(query.trim() == ''){
+        this.copyTodos = [...this.todos];
+      }else{
+        const temp = this.todos.filter(todo => {
+          return todo.title.includes(query)
+        });
+
+        this.copyTodos = [... temp];
+      }
     }
   },
   data(){
     return{
-      todos: [
-        {
-          id:0,
-          title: 'comprar la cena',
-          completed: false
-        },
-        {
-          id:1,
-          title: 'sacar a pasear al perro',
-          completed: true
-        },
-        {
-          id:2,
-          title: 'jugar xbox',
-          completed: false
-        },
-        {
-          id:3,
-          title: 'Terminar tutorial',
-          completed: true
-        }
-      ],
+      todos: [],
       copyTodos: []
       }
     },
