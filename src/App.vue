@@ -7,7 +7,7 @@
       <div id="main-container">
         <h2>Todos</h2>
         <TodoAdd v-on:add-todo="addTodo"/>
-        <TodosIn v-bind:todoslist="copyTodos" v-on:delete-todo="deleteTodo"/>
+        <TodosIn v-bind:todoslist="copyTodos" v-on:delete-todo="deleteTodo" v-on:change-todo="changeTodo"/>
       </div>
   </div>
 </template>
@@ -29,6 +29,14 @@ export default {
       this.todos = this.todos.filter(todo => todo.id != id );
       this.copyTodos = [...this.todos];
     },
+    changeTodo(id){
+      this.todos.forEach(todo => {
+        if(todo.id == id){
+          todo.completed = !todo.completed
+        }
+      } );
+      this.copyTodos = [...this.todos];
+    }, 
     addTodo(todo){
       this.todos.push(todo);
       this.copyTodos = [...this.todos];

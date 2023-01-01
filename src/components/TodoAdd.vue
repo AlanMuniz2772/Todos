@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import {uuid} from 'vue-uuid';
 
     export default {
         name: 'TodoAdd',
@@ -20,7 +19,7 @@ import {uuid} from 'vue-uuid';
             addTodo(e){
                 e.preventDefault();
                 const newTodo = {
-                    id: uuid.v4(),
+                    id: crypto.randomUUID(),
                     title: this.title,
                     completed: false
                 };
